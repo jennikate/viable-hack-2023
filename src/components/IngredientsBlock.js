@@ -20,8 +20,9 @@ function IngredientsBlock({ ingredientsList }) {
       </View>
       <View style={styles.ingredientContainer}>
         {ingredientsList.ingredients.map((ingredient) => {
+          console.log(ingredient)
           return (
-            <View key={ingredient.foodId}>
+            <View key={`${ingredient.foodId}${ingredient.text}`}>
               <Text style={styles.listText}>&#x2022; {ingredient.text}</Text>
             </View>
           )
