@@ -1,6 +1,10 @@
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, useWindowDimensions, View } from "react-native";
+import RenderHtml from 'react-native-render-html';
 
 function InstructionBlock({ instructions }) {
+  const source = { html: instructions.instructions };
+  const { width } = useWindowDimensions();
+
   return (
     <View style={styles.container}>
       <View style={styles.titleContainer}>
@@ -9,7 +13,10 @@ function InstructionBlock({ instructions }) {
         </Text>
       </View>
       <View style={styles.instructionContainer}>
-        <Text style={styles.bodyText}>{instructions.instructions}</Text>
+        {/* <Text style={styles.bodyText}>{instructions.instructions}</Text> */}
+        <RenderHtml
+          contentWidth={width}
+          source={source} />
       </View>
     </View>
   );
