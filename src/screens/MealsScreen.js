@@ -2,14 +2,32 @@ import { StatusBar } from 'expo-status-bar';
 import { Image, Pressable, StyleSheet, Text, View } from "react-native";
 import { useState } from "react";
 
-function MealsScreen({ route }) {
+function MealsScreen({ route, navigation }) {
   const { mealType } = route.params;
-  const [data, setData] = useState([]);
+  const [error, setError] = useState();
+  const [recipeTitleImage, setRecipeTitleImage] = useState([]);
   const [showGetRecipe, setShowGetRecipe] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
 
+  // const getRecipeDetails = ({ id }) => {
+  //   setIsLoading(true);
+  //   const myHeaders = new Headers();
+  //   myHeaders.append("Authorization", "Bearer 9084fae8081a4fe2a91966328648d6b0");
+
+  //   const requestOptions = {
+  //     method: 'GET',
+  //     headers: myHeaders,
+  //     redirect: 'follow'
+  //   };
+
+  //   fetch(`GET https://api.spoonacular.com/recipes/${id}/information`, requestOptions)
+  //     .then((resp) => resp.json())
+  //     .then((json) => setRecipeDetails(json.results))
+  //     .catch((error) => console.error(error))
+  //     .finally(() => setIsLoading(false));
+  // }
+
   const getData = () => {
-    console.log('getting data')
     setShowGetRecipe(false);
     setIsLoading(true);
     const myHeaders = new Headers();
@@ -23,20 +41,25 @@ function MealsScreen({ route }) {
 
     fetch(`https://api.spoonacular.com/recipes/complexSearch?apiKey=9084fae8081a4fe2a91966328648d6b0&query=${mealType}&number=1`, requestOptions)
       .then((resp) => resp.json())
-      .then((json) => setData(json.results))
-      .catch((error) => console.error(error))
+      .then((json) => setRecipeTitleImage(json.results))
+      .catch((error) => setError(error))
       .finally(() => setIsLoading(false));
   }
 
-  function onPress() {
+  function onGetRandomRecipePress() {
     getData()
   };
-  console.log(isLoading, data);
 
-  if (!data) {
+  function onGetRecipeDetailPress({ id }) {
+    navigation.navigate('RecipeDetails', {
+      id: id,
+    });
+  }
+
+  if (error) {
     return (
       <View style={styles.container}>
-        <Text style={styles.container}>No data</Text>
+        <Text style={styles.container}>There is an error</Text>
       </View>
     )
   }
@@ -50,7 +73,7 @@ function MealsScreen({ route }) {
             styles.button,
             pressed ? styles.buttonPressed : null
           ]}
-          onPress={onPress}
+          onPress={onGetRandomRecipePress}
         >
           <View style={[styles.innerContainer]}>
             <Text style={styles.title}>
@@ -70,8 +93,7 @@ function MealsScreen({ route }) {
         <Text>Loading...</Text>
       ) : (
         // for spoonacular
-        data.map((item) => {
-          console.log('p', item)
+        recipeTitleImage.map((item) => {
           return (
             <View key={item.id}>
               <Text style={styles.title}>{item.title}</Text>
@@ -81,6 +103,16 @@ function MealsScreen({ route }) {
                   uri: item.image,
                 }}
               />
+              <Pressable
+                android_ripple={{ color: '#fff' }}
+                style={({ pressed }) => [
+                  styles.button,
+                  pressed ? styles.buttonPressed : null
+                ]}
+                onPress={() => onGetRecipeDetailPress({ id: item.id })}
+              >
+                <Text style={styles.title}>Press for recipe details</Text>
+              </Pressable>
             </View>
           );
         })
