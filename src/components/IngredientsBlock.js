@@ -1,4 +1,4 @@
-import { FlatList, ImageBackground, Platform, Pressable, StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 
 function IngredientsBlock({ ingredientsList }) {
   // Could use a FlatList and render each item in the list
@@ -20,7 +20,7 @@ function IngredientsBlock({ ingredientsList }) {
         {ingredientsList.ingredients.map((ingredient) => {
           return (
             <View key={ingredient.id}>
-              <Text style={styles.listText}>{ingredient.original}</Text>
+              <Text style={styles.listText}>&#x2022; {ingredient.original}</Text>
             </View>
           )
         })}
@@ -59,5 +59,6 @@ const styles = StyleSheet.create({
   listText: {
     fontSize: 16,
     lineHeight: 24,
+    paddingLeft: 10,
   }
 });

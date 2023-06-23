@@ -1,6 +1,7 @@
 import { Image, ScrollView, StyleSheet, Text, View } from "react-native";
 import { useEffect, useState } from "react";
 import IngredientsBlock from "../components/IngredientsBlock";
+import InstructionBlock from "../components/InstructionBlock";
 // TODO: to render summary need to render html as it comes with html elements in the string https://www.npmjs.com/package/react-native-render-html
 
 function RecipeDetails({ route }) {
@@ -49,19 +50,22 @@ function RecipeDetails({ route }) {
 
   return (
     <ScrollView style={styles.container}>
-        <Image
-          style={styles.image}
-          source={{
-            uri: recipeDetails.image,
-          }}
-        />
-        <Text style={styles.title}>{recipeDetails.title}</Text>
-        <Text style={styles.smallText}>Source:</Text>
-        <Text style={styles.smallText}>{recipeDetails.sourceName}</Text>
+      <Image
+        style={styles.image}
+        source={{
+          uri: recipeDetails.image,
+        }}
+      />
+      <Text style={styles.title}>{recipeDetails.title}</Text>
+      <Text style={styles.smallText}>Source:</Text>
+      <Text style={styles.smallText}>{recipeDetails.sourceName}</Text>
 
-        <IngredientsBlock
-          ingredientsList={{ ingredients: recipeDetails.extendedIngredients }}
-        />
+      <IngredientsBlock
+        ingredientsList={{ ingredients: recipeDetails.extendedIngredients }}
+      />
+      <InstructionBlock
+        instructions={{ instructions: recipeDetails.instructions }}
+      />
     </ScrollView>
   )
 }
