@@ -5,7 +5,7 @@ import CategoryGridTile from '../components/CategoryGridTile';
 function CategoriesScreen({ navigation }) { // navigation is available as a prop here as this is a defined navigation screen
   function renderCategoryItem(itemData) {
     function pressHandler() {
-      navigation.navigate('Meals', {
+      navigation.navigate('Recipes', {
         mealType: itemData.item.searchPhrase,
       });
     }

@@ -6,6 +6,10 @@ import CategoriesScreen from './src/screens/CategoriesScreen';
 import MealsScreen from './src/screens/MealsScreen';
 import RecipeDetails from './src/screens/RecipeDetails';
 
+// TODO: proper dark mode management
+// TODO: add a search for recipe feature
+// TODO: add landing screen
+
 const Stack = createNativeStackNavigator();
 
 export default function App() {
@@ -14,8 +18,8 @@ export default function App() {
       <StatusBar style='dark' />
       <NavigationContainer>
         <Stack.Navigator screenOptions={{ contentStyle: { backgroundColor: '#000000' } }} >
-          <Stack.Screen name="Categories" component={CategoriesScreen} />
-          <Stack.Screen name="Meals" component={MealsScreen} />
+          <Stack.Screen name="Get random recipies containing..." component={CategoriesScreen} />
+          <Stack.Screen name="Recipes" component={MealsScreen} />
           <Stack.Screen name="RecipeDetails" component={RecipeDetails} />
         </Stack.Navigator>
     </NavigationContainer >
