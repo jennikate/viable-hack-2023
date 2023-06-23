@@ -9,24 +9,6 @@ function MealsScreen({ route, navigation }) {
   const [showGetRecipe, setShowGetRecipe] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
 
-  // const getRecipeDetails = ({ id }) => {
-  //   setIsLoading(true);
-  //   const myHeaders = new Headers();
-  //   myHeaders.append("Authorization", "Bearer 9084fae8081a4fe2a91966328648d6b0");
-
-  //   const requestOptions = {
-  //     method: 'GET',
-  //     headers: myHeaders,
-  //     redirect: 'follow'
-  //   };
-
-  //   fetch(`GET https://api.spoonacular.com/recipes/${id}/information`, requestOptions)
-  //     .then((resp) => resp.json())
-  //     .then((json) => setRecipeDetails(json.results))
-  //     .catch((error) => console.error(error))
-  //     .finally(() => setIsLoading(false));
-  // }
-
   const getData = () => {
     setShowGetRecipe(false);
     setIsLoading(true);
