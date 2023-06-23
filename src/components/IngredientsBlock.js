@@ -9,6 +9,8 @@ function IngredientsBlock({ ingredientsList }) {
   //   <Text style={styles.listText}>{item.item.original}</Text>
   // }
 
+  console.log(ingredientsList)
+
   return (
     <View style={styles.container}>
       <View style={styles.titleContainer}>
@@ -19,8 +21,8 @@ function IngredientsBlock({ ingredientsList }) {
       <View style={styles.ingredientContainer}>
         {ingredientsList.ingredients.map((ingredient) => {
           return (
-            <View key={ingredient.id}>
-              <Text style={styles.listText}>&#x2022; {ingredient.original}</Text>
+            <View key={ingredient.foodId}>
+              <Text style={styles.listText}>&#x2022; {ingredient.text}</Text>
             </View>
           )
         })}

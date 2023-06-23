@@ -4,23 +4,15 @@ import IngredientsBlock from "../components/IngredientsBlock";
 import InstructionBlock from "../components/InstructionBlock";
 
 function RecipeDetails({ route }) {
-  const { id } = route.params;
+  const { url } = route.params;
   const [error, setError] = useState();
   const [recipeDetails, setRecipeDetails] = useState();
   const [isLoading, setIsLoading] = useState(true);
 
   const getRecipeDetails = () => {
     setIsLoading(true);
-    const myHeaders = new Headers();
-    myHeaders.append("Authorization", "Bearer 9084fae8081a4fe2a91966328648d6b0");
-
-    const requestOptions = {
-      method: 'GET',
-      headers: myHeaders,
-      redirect: 'follow'
-    };
-
-    fetch(`https://api.spoonacular.com/recipes/${id}/information?apiKey=9084fae8081a4fe2a91966328648d6b0&includeNutrition=false`, requestOptions)
+    
+    fetch(url)
       .then((resp) => resp.json())
       .then((json) => setRecipeDetails(json))
       .catch((error) => console.error(error))
@@ -46,24 +38,24 @@ function RecipeDetails({ route }) {
       </View>
     )
   }
-
+console.log(recipeDetails.recipe)
   return (
     <ScrollView style={styles.container}>
       <Image
         style={styles.image}
         source={{
-          uri: recipeDetails.image,
+          uri: recipeDetails.recipe.images.SMALL.url,
         }}
       />
-      <Text style={styles.title}>{recipeDetails.title}</Text>
+      <Text style={styles.title}>{recipeDetails.recipe.label}</Text>
       <Text style={styles.smallText}>Source:</Text>
-      <Text style={styles.smallText}>{recipeDetails.sourceName}</Text>
+      <Text style={styles.smallText}>{recipeDetails.recipe.source}</Text>
 
       <IngredientsBlock
-        ingredientsList={{ ingredients: recipeDetails.extendedIngredients }}
+        ingredientsList={{ ingredients: recipeDetails.recipe.ingredients }} //want text
       />
       <InstructionBlock
-        instructions={{ instructions: recipeDetails.instructions }}
+        instructions={{ instructions: recipeDetails.recipe.url }}
       />
     </ScrollView>
   )
@@ -78,7 +70,6 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   image: {
-    width: '100%',
     height: 200,
     marginBottom: 20,
   },

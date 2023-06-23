@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import { Image, Pressable, StyleSheet, Text, View } from "react-native";
+import { Image, Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
 import { useEffect, useState } from "react";
 
 function MealsScreen({ route, navigation }) {
@@ -30,7 +30,7 @@ function MealsScreen({ route, navigation }) {
     //   .finally(() => setIsLoading(false));
 
     // EDAMAM
-    fetch(`https://api.edamam.com/api/recipes/v2?type=public&q=${mealType}&app_key=5372fda81d31572bfd05cd0669302a60`)
+    fetch(`https://api.edamam.com/api/recipes/v2?type=public&q=${mealType}&app_id=b24fc1b6&app_key=5372fda81d31572bfd05cd0669302a60&random=true`)
       .then((resp) => resp.json())
       .then((json) => setRecipeData(json.hits))
       .catch((error) => console.error(error))
@@ -38,9 +38,10 @@ function MealsScreen({ route, navigation }) {
   }
 
 
-  function onGetRecipeDetailPress({ id }) {
+  function onGetRecipeDetailPress({ url }) {
+    console.log('pressed')
     navigation.navigate('RecipeDetails', {
-      id: id,
+      url: url,
     });
   }
 
@@ -57,38 +58,37 @@ function MealsScreen({ route, navigation }) {
   }
 
   return (
-    <View style={styles.container}>
+    <ScrollView style={styles.container}>
       <StatusBar style="auto" />
 
       {isLoading ? (
         <Text>Loading...</Text>
       ) : (
-        // for spoonacular
+        // for edamam
         recipeData.map((item) => {
           return (
-            <View key={item.id}>
-              <Text style={styles.title}>{item.title}</Text>
-              <Image
-                style={styles.image}
-                source={{
-                  uri: item.image,
-                }}
-              />
+            <View key={item.recipe.uri}>
               <Pressable
                 android_ripple={{ color: '#fff' }}
                 style={({ pressed }) => [
                   styles.button,
                   pressed ? styles.buttonPressed : null
                 ]}
-                onPress={() => onGetRecipeDetailPress({ id: item.id })}
+                onPress={() => onGetRecipeDetailPress({ url: item._links.self.href })}
               >
-                <Text style={styles.title}>Press for recipe details</Text>
+                <Image
+                  style={styles.image}
+                  source={{
+                    uri: item.recipe.images.SMALL.url,
+                  }}
+                />
+                <Text style={styles.title}>{item.recipe.label}</Text>
               </Pressable>
             </View>
           );
         })
       )}
-    </View>
+    </ScrollView>
   );
 }
 
@@ -97,16 +97,19 @@ export default MealsScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "center",
     backgroundColor: "#ecf0f1",
-    padding: 8,
+    padding: 20,
   },
   title: {
-    fontSize: 30,
-    fontWeight: "bold",
+    fontSize: 20,
+    fontWeight: 'bold',
+    textAlign: 'center',
+    paddingBottom: 40,
+    paddingTop: 20,
   },
   image: {
-    width: '100%',
-    height: 200
+    height: 200,
+    borderRadius: 8,
+    backgroundColor: 'white',
   },
 });

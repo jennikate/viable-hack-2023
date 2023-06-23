@@ -1,9 +1,13 @@
 import { StyleSheet, Text, useWindowDimensions, View } from "react-native";
-import RenderHtml from 'react-native-render-html';
+// import RenderHtml from 'react-native-render-html';
 
 function InstructionBlock({ instructions }) {
-  const source = { html: instructions.instructions };
-  const { width } = useWindowDimensions();
+  console.log(instructions)
+  // const source = { html: instructions.instructions };
+  // const { width } = useWindowDimensions();
+
+  // TODO: In Edamam version they don't give instructions just a link to source
+  // make link clickable to open in webbrowser https://reactnative.dev/docs/linking
 
   return (
     <View style={styles.container}>
@@ -13,10 +17,12 @@ function InstructionBlock({ instructions }) {
         </Text>
       </View>
       <View style={styles.instructionContainer}>
-        {/* <Text style={styles.bodyText}>{instructions.instructions}</Text> */}
-        <RenderHtml
+        <Text style={styles.bodyText}>
+        {/* SPOONACULAR returns html as a string to render so needs this, Edamam doesn't <RenderHtml
           contentWidth={width}
-          source={source} />
+          source={source} /> */}
+          You can view instructions at the recipe source: {instructions.instructions}
+          </Text>
       </View>
     </View>
   );

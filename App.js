@@ -13,12 +13,12 @@ export default function App() {
     <>
       <StatusBar style='dark' />
       <NavigationContainer>
-        <Stack.Navigator>
+        <Stack.Navigator screenOptions={{ contentStyle: { backgroundColor: '#000000' } }} >
           <Stack.Screen name="Categories" component={CategoriesScreen} />
           <Stack.Screen name="Meals" component={MealsScreen} />
           <Stack.Screen name="RecipeDetails" component={RecipeDetails} />
         </Stack.Navigator>
-      </NavigationContainer>
+    </NavigationContainer >
     </>
   );
 }
