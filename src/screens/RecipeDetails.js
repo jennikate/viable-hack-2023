@@ -2,7 +2,6 @@ import { Image, ScrollView, StyleSheet, Text, View } from "react-native";
 import { useEffect, useState } from "react";
 import IngredientsBlock from "../components/IngredientsBlock";
 import InstructionBlock from "../components/InstructionBlock";
-// TODO: to render summary need to render html as it comes with html elements in the string https://www.npmjs.com/package/react-native-render-html
 
 function RecipeDetails({ route }) {
   const { id } = route.params;
