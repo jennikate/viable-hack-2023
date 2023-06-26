@@ -15,7 +15,7 @@ function MealsScreen({ route, navigation }) {
 
     // SPOONACULAR
     // const myHeaders = new Headers();
-    // myHeaders.append("Authorization", "Bearer 9084fae8081a4fe2a91966328648d6b0");
+    // myHeaders.append("Authorization", "Bearer OLDKEY");
 
     // const requestOptions = {
     //   method: 'GET',
@@ -23,14 +23,14 @@ function MealsScreen({ route, navigation }) {
     //   redirect: 'follow'
     // };
 
-    // fetch(`https://api.spoonacular.com/recipes/complexSearch?apiKey=9084fae8081a4fe2a91966328648d6b0&query=${mealType}&number=1`, requestOptions)
+    // fetch(`https://api.spoonacular.com/recipes/complexSearch?apiKey=OLDKEY&query=${mealType}&number=1`, requestOptions)
     //   .then((resp) => resp.json())
     //   .then((json) => setRecipeData(json.results))
     //   .catch((error) => setError(error))
     //   .finally(() => setIsLoading(false));
 
     // EDAMAM
-    fetch(`https://api.edamam.com/api/recipes/v2?type=public&q=${mealType}&app_id=b24fc1b6&app_key=5372fda81d31572bfd05cd0669302a60&random=true`)
+    fetch(`https://api.edamam.com/api/recipes/v2?type=public&q=${mealType}&app_id=OLDID&app_key=OLDKEY&random=true`)
       .then((resp) => resp.json())
       .then((json) => setRecipeData(json.hits))
       .catch((error) => console.error(error))
